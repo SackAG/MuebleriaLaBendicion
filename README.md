@@ -1,3 +1,4 @@
+
 # 🛋️ Mueblería La Bendición — Sistema de Inventario
 
 Sistema de inventario, ventas a crédito y control de cobros desarrollado con **Laravel 10** + **Bootstrap 5** + **MySQL**.
@@ -220,3 +221,6 @@ php artisan migrate:fresh --seed
 # Ver rutas registradas
 php artisan route:list
 ```
+
+# MuebleriaLaBendicion
+Sistema de compra/venta para muebleria 
