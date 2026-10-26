@@ -51,13 +51,19 @@ class PagoController extends Controller
     }
 
     public function create(Venta $venta)
-    {
-        if (auth()->user()->isCobrador() && $venta->cobrador_id !== auth()->id()) {
-            abort(403);
-        }
-        $venta->load('cliente');
-        return view('pagos.create', compact('venta'));
+{
+    if (auth()->user()->isCobrador() && $venta->cobrador_id !== auth()->id()) {
+        abort(403);
     }
+    $venta->load(['cliente', 'pagos']);
+
+    $pagosRealizados = $venta->pagos->count();
+    $numeroPago      = $pagosRealizados + 1;
+$pagosRestantes = max(1, $venta->num_pagos - $pagosRealizados);
+$cuotaSugerida  = round($venta->saldo_pendiente / $pagosRestantes, 2);
+
+return view('pagos.create', compact('venta', 'numeroPago', 'pagosRestantes', 'cuotaSugerida'));
+}
 
     public function store(Request $request, Venta $venta)
     {

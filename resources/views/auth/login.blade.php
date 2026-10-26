@@ -3,76 +3,100 @@
 @section('title', 'Iniciar Sesión - Mueblería La Bendición')
 
 @section('content')
-<div class="min-vh-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #4a1942 0%, #2d0f29 100%);">
-    <div class="card shadow-lg" style="width: 100%; max-width: 420px; border-radius: 16px; border: none;">
-        <div class="card-body p-5">
-            <!-- Logo/Brand -->
-            <div class="text-center mb-4">
-                <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3"
-                     style="width:64px;height:64px;background:#4a1942;">
-                    <i class="bi bi-house-heart-fill text-white fs-2"></i>
-                </div>
-                <h4 class="fw-bold text-dark mb-0">Mueblería La Bendición</h4>
-                <p class="text-muted small">Sistema de Inventario y Cobros</p>
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%); padding: 1.5rem;">
+
+    <div style="width: 100%; max-width: 420px;">
+
+        <!-- Brand header -->
+        <div class="text-center mb-4">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 14px; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4); margin-bottom: 1rem;">
+                <i class="bi bi-house-heart-fill" style="color: #ffffff; font-size: 1.65rem;"></i>
             </div>
+            <h1 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; letter-spacing: -0.02em;">
+                Mueblería La Bendición
+            </h1>
+            <p style="font-size: 0.8125rem; color: #94a3b8; margin: 0.35rem 0 0;">
+                Sistema de Inventario, Ventas y Cobros
+            </p>
+        </div>
 
-            <!-- Form -->
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="email" class="form-label fw-semibold">Correo Electrónico</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-envelope-fill text-muted"></i></span>
-                        <input type="email"
-                               id="email"
-                               name="email"
-                               class="form-control @error('email') is-invalid @enderror"
-                               value="{{ old('email') }}"
-                               placeholder="correo@ejemplo.com"
-                               autofocus
-                               required>
+        <!-- Auth Card -->
+        <div class="card shadow-lg border-0" style="border-radius: 16px; background: #ffffff;">
+            <div class="card-body p-4 p-sm-5">
+                <div class="mb-4 text-center">
+                    <h2 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0;">Bienvenido de nuevo</h2>
+                    <p style="font-size: 0.8rem; color: #64748b; margin: 0.25rem 0 0;">Ingrese sus credenciales para acceder</p>
+                </div>
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   value="{{ old('email') }}"
+                                   placeholder="ejemplo@muebleria.com"
+                                   autofocus
+                                   required
+                                   class="form-control @error('email') is-invalid @enderror"
+                                   autocomplete="email">
+                        </div>
                         @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="text-danger mt-1" style="font-size: 0.75rem;">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
                         @enderror
                     </div>
-                </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label fw-semibold">Contraseña</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-lock-fill text-muted"></i></span>
-                        <input type="password"
-                               id="password"
-                               name="password"
-                               class="form-control @error('password') is-invalid @enderror"
-                               placeholder="••••••••"
-                               required>
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   placeholder="••••••••"
+                                   required
+                                   class="form-control @error('password') is-invalid @enderror"
+                                   autocomplete="current-password">
+                        </div>
                         @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="text-danger mt-1" style="font-size: 0.75rem;">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
                         @enderror
                     </div>
-                </div>
 
-                <div class="mb-4 d-flex align-items-center justify-content-between">
-                    <div class="form-check mb-0">
-                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                        <label class="form-check-label small" for="remember">Recordarme</label>
+                    <!-- Remember -->
+                    <div class="mb-4 d-flex align-items-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label text-secondary small user-select-none" for="remember">
+                                Mantener sesión iniciada
+                            </label>
+                        </div>
                     </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary w-100 py-2" style="font-size: 0.9rem; font-weight: 700; border-radius: 10px;">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
+                    </button>
+                </form>
+
+                <div class="text-center mt-4 pt-3 border-top">
+                    <span style="font-size: 0.75rem; color: #94a3b8; display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <i class="bi bi-shield-check text-success"></i> Acceso restringido a personal autorizado
+                    </span>
                 </div>
-
-                <button type="submit" class="btn w-100 text-white fw-semibold py-2"
-                        style="background:#4a1942; border-color:#4a1942;">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
-                </button>
-            </form>
-
-            <div class="text-center mt-4">
-                <small class="text-muted">
-                    <i class="bi bi-shield-check me-1"></i>
-                    Acceso solo para personal autorizado
-                </small>
             </div>
         </div>
+
     </div>
 </div>
 @endsection

@@ -221,6 +221,3 @@ php artisan migrate:fresh --seed
 # Ver rutas registradas
 php artisan route:list
 ```
-
-# MuebleriaLaBendicion
-Sistema de compra/venta para muebleria 
